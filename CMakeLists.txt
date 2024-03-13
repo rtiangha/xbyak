@@ -5,8 +5,13 @@ project(xbyak LANGUAGES CXX VERSION 7.06)
 file(GLOB headers xbyak/*.h)
 
 include(GNUInstallDirs)
-add_library(${PROJECT_NAME} INTERFACE)
-add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+
+if (NOT TARGET ${PROJECT_NAME})
+  add_library(${PROJECT_NAME} INTERFACE)
+endif()
+if (NOT TARGET ${PROJECT_NAME}::${PROJECT_NAME})
+  add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+endif()
 
 target_include_directories(
 	${PROJECT_NAME} INTERFACE
